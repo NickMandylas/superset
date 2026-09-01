@@ -16,9 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-/* eslint-disable import/no-extraneous-dependencies */
 import { useState } from 'react';
-import { Dropdown } from 'antd';
+import { Dropdown } from '@superset-ui/core/components';
+import type { MenuProps } from '@superset-ui/core/components/Menu';
 import { TableOutlined, DownOutlined, CheckOutlined } from '@ant-design/icons';
 import { t } from '@apache-superset/core/translation';
 import { InfoText, ColumnLabel, CheckIconWrapper } from '../../styles';
@@ -43,8 +43,7 @@ const TimeComparisonVisibility: React.FC<TimeComparisonVisibilityProps> = ({
 
   const allKey = comparisonColumns[0].key;
 
-  const handleOnClick = (data: any) => {
-    const { key } = data;
+  const handleOnClick: NonNullable<MenuProps['onClick']> = ({ key }) => {
     // Toggle 'All' key selection
     if (key === allKey) {
       onSelectionChange([allKey]);
