@@ -21,6 +21,7 @@ import configureStore from 'redux-mock-store';
 import fetchMock from 'fetch-mock';
 import thunk from 'redux-thunk';
 import mockDatasource from 'spec/fixtures/mockDatasource';
+import { supersetTheme } from '@apache-superset/core/theme';
 import ChangeDatasourceModal from '.';
 
 const mockStore = configureStore([thunk]);
@@ -72,6 +73,18 @@ test('fetches datasources', async () => {
   setup();
   await waitFor(() =>
     expect(fetchMock.callHistory.calls(INFO_ENDPOINT)).toHaveLength(1),
+  );
+});
+
+test('applies a hover color to dataset names', async () => {
+  const { findByTestId } = setup();
+  const datasetLink = await findByTestId('datasource-link');
+
+  expect(datasetLink).toHaveStyleRule('color', supersetTheme.colorPrimaryText);
+  expect(datasetLink).toHaveStyleRule(
+    'color',
+    supersetTheme.colorPrimaryTextActive,
+    { target: ':hover' },
   );
 });
 

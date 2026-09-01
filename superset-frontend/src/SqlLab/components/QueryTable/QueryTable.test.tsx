@@ -22,6 +22,7 @@ import configureStore from 'redux-mock-store';
 import userEvent from '@testing-library/user-event';
 import QueryTable from 'src/SqlLab/components/QueryTable';
 import { runningQuery, successfulQuery, user } from 'src/SqlLab/fixtures';
+import { supersetTheme } from '@apache-superset/core/theme';
 import { render, screen, waitFor } from 'spec/helpers/testing-library';
 
 const mockedProps = {
@@ -60,6 +61,23 @@ describe('QueryTable', () => {
         'table > tbody > tr:not(.ant-table-measure-row)',
       ),
     ).toHaveLength(2);
+  });
+
+  test('applies a hover color to the action tooltip icons', () => {
+    const mockStore = configureStore([thunk]);
+    const { container } = render(
+      <QueryTable
+        {...mockedProps}
+        columns={['started', 'duration', 'rows', 'actions']}
+      />,
+      { store: mockStore({ user }) },
+    );
+
+    const tooltip = container.querySelector('.pointer');
+    expect(tooltip).toBeInTheDocument();
+    expect(tooltip).toHaveStyleRule('color', supersetTheme.colorPrimary, {
+      target: 'span:hover',
+    });
   });
 
   test('renders empty table when no queries provided', () => {
