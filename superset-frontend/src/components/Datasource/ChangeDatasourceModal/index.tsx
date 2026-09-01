@@ -92,7 +92,7 @@ const StyledSpan = styled.button`
   font: inherit;
   cursor: pointer;
   color: ${({ theme }) => theme.colorPrimaryText};
-  &: hover {
+  &:hover {
     color: ${({ theme }) => theme.colorPrimaryTextActive};
   }
 `;

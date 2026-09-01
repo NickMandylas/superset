@@ -34,7 +34,7 @@ export const StyledTooltip = styled(IconTooltip)`
   padding-right: ${({ theme }) => theme.sizeUnit * 2}px;
   span {
     color: ${({ theme }) => theme.colorIcon};
-    &: hover {
+    &:hover {
       color: ${({ theme }) => theme.colorPrimary};
     }
   }
